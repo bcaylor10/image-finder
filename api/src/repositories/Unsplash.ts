@@ -15,6 +15,6 @@ export default class UnsplashInstance {
     searchImages = (term: string): [] => this.unsplash.search.getPhotos({
         query: term,
         page: 1,
-        perPage: 10
+        perPage: 24
     });
 }

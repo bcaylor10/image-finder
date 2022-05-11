@@ -1,0 +1,46 @@
+@import '../../styles/variables';
+
+.search-form-container {
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    background-color: $light-purple;
+    position: relative;
+    .background-image {
+        opacity: .4;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    .container {
+        position: relative;
+        z-index: 1;
+        .title,
+        .text {
+            margin-bottom: 20px;
+        }
+        .text {
+            font-size: 1rem;
+            margin-bottom: 50px;
+        }
+        .search-form {
+            width: 40vw;
+            input[type='search'] {
+                text-align: center;
+                font-family: $quicksand;
+            }
+            .button-column {
+                display: flex;
+                justify-content: center;
+                button {
+                    min-width: 160px;
+                }
+            }
+        }
+    }
+}
