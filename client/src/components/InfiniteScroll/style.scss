@@ -6,9 +6,16 @@
         margin: 0;
         .image-column {
             height: 20vw;
+            max-height: 300px;
             position: relative;
             overflow: hidden;
             cursor: pointer;
+            @media (max-width: 860px) {
+                height: 30vw;
+            }
+            @media (max-width: 576px) {
+                height: 60vw
+            }
             &:hover {
                 .background-color {
                     opacity: 1;

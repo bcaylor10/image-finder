@@ -62,7 +62,14 @@ const IScroll = ({ setImages, images, setError, error, handleOpenModal, search }
                 <Grid className="grid">
                     {images.results.map((i: any) => {
                         return (
-                            <Grid.Col span={3} key={i.id} className="image-column" onClick={() => handleOpenModal(i)}>
+                            <Grid.Col 
+                                md={3}
+                                sm={4}
+                                xs={6}
+                                key={i.id} 
+                                className="image-column" 
+                                onClick={() => handleOpenModal(i)}
+                            >
                                 <Image
                                     className="image"
                                     src={i.urls.regular}
