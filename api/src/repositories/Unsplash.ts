@@ -12,9 +12,9 @@ export default class UnsplashInstance {
         this.unsplash = unsplash;
     }
 
-    searchImages = (term: string): [] => this.unsplash.search.getPhotos({
+    searchImages = (term: string, page?: number): [] => this.unsplash.search.getPhotos({
         query: term,
-        page: 1,
+        page: page,
         perPage: 24
     });
 }

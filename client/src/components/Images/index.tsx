@@ -1,46 +1,70 @@
-import { Container, Skeleton, Title, Divider, Grid, Image } from '@mantine/core';
-import { isNil } from 'ramda'; 
+import { useState } from 'react';
+import { Container, Alert, Title, Divider, Grid, Image, Modal } from '@mantine/core';
+import { path, isNil } from 'ramda';
+
+import IScroll from '../InfiniteScroll';
 
 interface IImages {
+    setImages: any;
     images: any|null;
-    loading: boolean;
+    search: string;
 }
 
-const Images = ({ images, loading }: IImages) => {
+const Images = ({ setImages, images, search }: IImages) => {
+    const [ currentImage, setCurrentImage ] = useState<any>(null);
+    const [ error, setError ] = useState<boolean>(false);
+    const [ open, setOpen ] = useState<boolean>(false);
+
+    const handleOpenModal = (image: any) => {
+        setCurrentImage(image);
+        setOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setOpen(false);
+        setCurrentImage(null);
+    };
+
     return (
-        <section>
+        <>
+        <section id="scrollable">
             <Container>
-                {loading ? (
+                {error && (
+                    <Alert title="Error" color="red">
+                        Error retreiving images
+                    </Alert>
+                )}
+                <Title order={2} align="center">
+                    Results: {isNil(images) ? 'No results found' : images?.total}
+                </Title>
+                <Divider my="lg" />
+                {(!isNil(images) && images.results) && (
                     <>
-                        <Skeleton height={10} mt={6} width="60%" radius="xl"/>
-                        <Skeleton height={10} mt={6} width="100%" radius="xl" />
-                        <Skeleton height={10} mt={6} width="70%"radius="xl" />
-                        <Skeleton height={10} mt={6} width="80%" radius="xl" />
-                    </>
-                ) : (
-                    <>
-                        <Title order={2} align="center">
-                            Results: {isNil(images) ? 'No results found' : images?.total}
-                        </Title>
-                        <Divider my="lg" />
-                        {(!isNil(images) && images.results) && (
-                            <Grid>
-                                {images.results.map((i: any) => {
-                                    return (
-                                        <Grid.Col span={3} key={i.id}>
-                                            <Image
-                                                src={i.urls.regular}
-                                                alt={i.alt_description}
-                                            />
-                                        </Grid.Col>
-                                    )
-                                })}
-                            </Grid>
-                        )}
+                        <IScroll 
+                            setImages={setImages} 
+                            images={images} 
+                            setError={setError}
+                            error={error}
+                            handleOpenModal={handleOpenModal}
+                            search={search}
+                        />
+                        <Modal
+                            size={700}
+                            opened={open}
+                            onClose={handleCloseModal}
+                            title={path(['description'], currentImage)}
+                        >
+                            <Image
+                                src={path(['urls', 'regular'], currentImage)}
+                                alt={path(['alt_description'], currentImage)}
+                                withPlaceholder
+                            />
+                        </Modal>
                     </>
                 )}
             </Container>
         </section>
+        </>
     )
 };
 

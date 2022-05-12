@@ -4,38 +4,34 @@ import { isEmpty } from "ramda";
 
 import SearchImage from '../../images/search.jpg';
 import { searchImages } from "../../api/images";
+import { IImages } from "../../pages/Search";
 
 import './style.scss';
 
 interface ISearchForm {
     setImages: any;
-    setLoading: any;
+    search: string;
+    setSearch: any;
 }
 
-const SearchForm = ({ setImages, setLoading }: ISearchForm) => {
-    const [ search, setSearch ] = useState<string>('');
+const SearchForm = ({ setImages, search, setSearch }: ISearchForm) => {
     const [ error, setError ] = useState<string>('');
 
     const submit = async (e: any) => {
         e.preventDefault();
         if (search.length < 3) return setError('At least three (3) characters are required');
         
-        setLoading(true);
-
         try {
             const res = await searchImages(search);
 
 
-            if (!res.data.response) {
-                setLoading(false);
-            } else {
-                setImages(res.data.response);
-                setLoading(false);
-            }
-            
+            if (!res.data.response) return;
+
+
+            setImages(res.data.response);
+            setError('');
         } catch (err) {
             setError('Unable to retrieve images');
-            setLoading(false);
         }
     }
     

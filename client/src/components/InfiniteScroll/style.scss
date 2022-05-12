@@ -1,0 +1,53 @@
+@import '../../styles/variables';
+
+.infinite-scroll {
+    overflow-x: hidden !important;
+    .grid {
+        margin: 0;
+        .image-column {
+            height: 20vw;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            &:hover {
+                .background-color {
+                    opacity: 1;
+                }
+            }
+            .image {
+                figure {
+                    div {
+                        position: static;
+                        img {
+                            position: absolute;
+                            top: 8px;
+                            left: 8px;
+                            height: calc(100% - 16px) !important;
+                            width: calc(100% - 16px) !important;
+                            border-radius: 10px;
+                        }
+                    }
+                }
+            }
+            .background-color {
+                background: rgba($black, .65);
+                position: absolute;
+                top: 8px;
+                left: 8px;
+                height: calc(100% - 16px) !important;
+                width: calc(100% - 16px) !important;
+                border-radius: 10px;
+                z-index: 2;
+                opacity: 0;
+                transition: opacity .2s ease-in-out;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                .text {
+                    font-size: 1.2rem;
+                    letter-spacing: .5px;
+                }
+            }
+        }
+    }
+}

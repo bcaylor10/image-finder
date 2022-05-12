@@ -1,7 +1,7 @@
 @import 'variables';
 
 html, body {
-    height: 100%;
+    width: 100%;
     overflow-x: hidden;
     margin: 0;
     padding: 0;
@@ -14,7 +14,6 @@ body {
 }
 
 main {
-    min-height: calc(100vh - 60px);
     padding: 0 !important;
     margin-top: 60px;
 }
